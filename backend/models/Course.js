@@ -2,25 +2,26 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const CourseSchema = new Schema({
+    admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'admin'
+    },
     title: {
         type: String,
         required: true,
         unique: true
     },
     description: {
-        type: String,
-        required: true,
+        type: String
     },
     instructor: {
-        type: String,
-        required: true
+        type: String
     },
     duration: {
-        type: String,
+        type: String
     },
-    tags: {
-        type: String,
-        required: true
+    tag: {
+        type: String
     }
 });
 
