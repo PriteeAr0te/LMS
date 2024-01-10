@@ -5,10 +5,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 router.use(express.json())
+const fetchadmin = require('../middleware/fetchadmin')
 
 const JWT_SECRET = "youareverry$pretty";
 
-//Create a user using Post "/api/auth/createadmin" No Login Required
+//Route1: Create a admin using Post "/api/auth/createadmin" No Login Required
 router.post('/createadmin',[
    body('name','Enter a valid name').isLength({min:2}),
    body('email', 'Enter a valid mail').isEmail(),
@@ -22,7 +23,7 @@ router.post('/createadmin',[
         return res.status(400).json({ errors: errors.array() });
       }
 
-      // check if the asmin with same email exist or not 
+      // check if the admin with same email exist or not 
       let admin = await Admin.findOne({email: req.body.email})
       if(admin){
          return res.status(400).json({error:"Email Already Exist."})
@@ -57,7 +58,7 @@ router.post('/createadmin',[
 })
 
 
-//Authenticate a user using Post "/api/auth/login" No Login Required
+//Route 2: Authenticate a admin using Post "/api/auth/login" No Login Required
 router.post('/login',[
    body('email', 'Enter a valid mail').isEmail(),
    body('password', 'Password must be greater than 5 characters').exists()
@@ -91,9 +92,23 @@ router.post('/login',[
       res.json({authtoken})
    }
    catch(error){
-      console.error(error);
       return res.status(400).json({error: "Error Occured in Login"})
    }
+})
+
+
+
+//Route 3: Get admin data using Post "/api/auth/getadmin" Login Required
+router.get('/getadmin', fetchadmin, async(req, res)=>{
+try{
+   let adminId = req.admin.id;
+   let admin = await Admin.findById(adminId).select('-password');
+   res.send(admin)
+}
+catch(err){
+   console.log(err)
+   return res.status(400).json({error: "Internal Server Error"});
+}
 })
 
 module.exports = router;
