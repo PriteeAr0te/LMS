@@ -29,4 +29,6 @@ const AdminSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('admin', AdminSchema)
+const Admin = mongoose.model('admin', AdminSchema);
+Admin.createIndexes();
+module.exports = Admin;
