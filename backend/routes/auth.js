@@ -1,11 +1,15 @@
 const express = require('express');
 const Admin = require('../models/Admin');
 const router = express.Router();
-//useing express validator
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+//using express validator
 const { body, validationResult } = require('express-validator');
 
-//Create a user using Post "/api/auth/"
-router.post('/',[
+const JWT_SECRET = 'YourCourseFinder';
+
+//Create a user using Post "/api/auth/createadmin" No Login Required
+router.post('/createadmin',[
    body('name','Enter a valid name').isLength({min:2}),
    body('email', 'Enter a valid mail').isEmail(),
    body('password', 'Password must be greater than 5 characters').isLength({min:6}),
@@ -16,16 +20,31 @@ router.post('/',[
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      Admin.create({
+
+      // check if the asmin with same email exist or not 
+      let admin = await Admin.findOne({email: req.body.email})
+      if(admin){
+         return res.status(400).json({error:"Email Already Exist."})
+      }
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(req.body.password, salt)
+
+      //Create a Admin
+      admin = await Admin.create({
          name: req.body.name,
          email: req.body.email,
-         password: req.body.password,
+         password: secPass,
          phone: req.body.phone,
          profession: req.body.profession
-       }).then(admin => res.json(admin))
-       .catch(error => { console.log(error);
-         res.json({error:"Email Already Exist."});
-      });
+       })
+       //Creating Authtoken 
+       const data = {
+         admin: {
+            id : admin.id,
+         }
+       }
+       const authtoken = jwt.sign(data, JWT_SECRET);
+       res.json({"Authtoken": authtoken})
 
    }
    catch(error){
