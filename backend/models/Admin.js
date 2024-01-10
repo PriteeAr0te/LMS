@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const {Schema} = mongoose;
 
 const AdminSchema = new Schema({
     name : {
@@ -14,7 +15,7 @@ const AdminSchema = new Schema({
         type: Number,
         required: true
     },
-    Profession: {
+    profession: {
         type: String,
         required: true
     },
