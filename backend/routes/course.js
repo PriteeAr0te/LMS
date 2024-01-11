@@ -36,7 +36,7 @@ router.get('/addcourse', fetchadmin, [
       res.json(savedCourse)
     }
     catch(error){
-        console.log(error)
+        // console.log(error)
         res.status(500).json({error: "Error Occured in adding Course"})
     }
  })
@@ -71,13 +71,11 @@ router.put('/updatecourse/:id', fetchadmin, [
         res.json({course});
     }
     catch(error){
-        console.log(error)
+        // console.log(error)
         res.status(500).json({error: "Error Occured in Updating Course"})
     }
 
 })
-
-
 
 
 // Route 4: Delete Coourse using Delete "/api/course/deletecourse" Login Required
@@ -98,7 +96,7 @@ router.delete('/deletecourse/:id', fetchadmin, async(req, res)=>{
         res.json({"Success": "Course has been deleted Successfully"});
     }
     catch(error){
-        console.log(error)
+        // console.log(error)
         res.status(500).json({error: "Error Occured in Updating Course"})
     }
 
