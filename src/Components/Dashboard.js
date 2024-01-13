@@ -7,40 +7,41 @@ const Dashboard = () => {
   const context = useContext(courseContext);
   const { courses, getCourses, editCourse } = context;
 
-  const [course, setCourse] = useState({id:"", etitle: "", edescription: "", einstructor: "", eduration: "", etag: ""})
+  const [course, setCourse] = useState({ id: "", etitle: "", edescription: "", einstructor: "", eduration: "", etag: "" })
 
   useEffect(() => {
+    // eslint-disable-next-line 
     getCourses();
   }, [])
 
   const [FormVisible, setFormVisible] = useState(false)
 
   const handleAddCourse = () => {
-    setFormVisible(true);
+    setFormVisible(true)
   }
 
   const updateCourse = (currentCourse) => {
-    ref.current.click()
-    setCourse({id: currentCourse._id, etitle:currentCourse.title, edescription: currentCourse.description, einstructor: currentCourse.instructor, eduration: currentCourse.duration, etag: currentCourse.tag})
+    refEdit.current.click()
+    setCourse({ id: currentCourse._id, etitle: currentCourse.title, edescription: currentCourse.description, einstructor: currentCourse.instructor, eduration: currentCourse.duration, etag: currentCourse.tag })
   }
   const handleClick = (e) => {
     console.log("Updating a Course", course)
     editCourse(course.id, course.etitle, course.edescription, course.einstructor, course.eduration, course.etag)
     // e.preventDefault();
     refClose.current.click()
-}
-  const onChange = (e)=>{
+  }
+  const onChange = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value })
   }
-  const ref = useRef(null); 
-  const refClose = useRef(null); 
+  const refEdit = useRef(null);
+  const refClose = useRef(null);
 
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? `${text.substring(0, maxLength - 10)}...` : text;
   };
 
   const truncateFields = (course) => {
-    const maxLength = 30; // Adjust the max length as needed
+    const maxLength = 30;
     return {
       ...course,
       title: truncateText(course.title, maxLength),
@@ -51,12 +52,12 @@ const Dashboard = () => {
 
   return (
     <>
-    {/* Html Course for Editing Course */}
-      <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" ref = {ref}>Open modal for Edit</button>
+      {/* Html Course for Editing Course */}
+      <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editCourseModel" data-bs-whatever="@mdo" ref={refEdit}>Open modal for Edit</button>
 
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="editCourseModel" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
-          <div className="modal-content" style={{backgroundColor:'#2a9d8f'}}>
+          <div className="modal-content" style={{ backgroundColor: '#e9c46a' }}>
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="edit-course">Edit Course </h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -64,37 +65,41 @@ const Dashboard = () => {
             <div className="modal-body">
               <form>
                 <div className="mb-1 fw-bold">
-                  <label htmlFor="etitle" className="col-form-label">Title:</label>
-                  <input type="text" className="form-control" value={course.etitle} name ="etitle" onChange={onChange} id="etitle" />
+                  <label htmlFor="etitle" className="col-form-label">Title <i style={{ color: 'red' }}>*</i></label>
+                  <input type="text" className="form-control" value={course.etitle} name="etitle" onChange={onChange} id="etitle" minLength={2}  required />
                 </div>
                 <div className="mb-1 fw-bold">
                   <label htmlFor="edescription" className="col-form-label">Description</label>
-                  <textarea className="form-control" value={course.edescription} name ="edescription" onChange={onChange} id="edescription"></textarea>
+                  <textarea className="form-control" value={course.edescription} name="edescription" onChange={onChange} id="edescription" minLength={2}></textarea>
                 </div>
                 <div className="mb-1 fw-bold">
-                  <label htmlFor="einstructor" className="col-form-label">Instructor</label>
-                  <input type="text" className="form-control" value={course.einstructor} name ="einstructor" onChange={onChange} id="einstructor" />
+                  <label htmlFor="einstructor" className="col-form-label">Instructor<i style={{ color: 'red' }}>*</i></label>
+                  <input type="text" className="form-control" value={course.einstructor} name="einstructor" onChange={onChange} id="einstructor" minLength={2}  required />
                 </div>
                 <div className="mb-1 fw-bold">
-                  <label htmlFor="eduration" className="col-form-label">Duration</label>
-                  <input type="text" className="form-control" value={course.eduration} name ="eduration" onChange={onChange} id="eduration" />
+                  <label htmlFor="eduration" className="col-form-label">Duration <i style={{ color: 'red' }}>*</i></label>
+                  <input type="text" className="form-control" value={course.eduration} name="eduration" onChange={onChange} id="eduration" minLength={2}  required />
                 </div>
                 <div className="mb-1 fw-bold">
                   <label htmlFor="etag" className="col-form-label">Tag</label>
-                  <input type="text" className="form-control" value={course.etag} name ="etag" onChange={onChange} id="etag" />
+                  <input type="text" className="form-control" value={course.etag} name="etag" onChange={onChange} id="etag" minLength={2} />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
-              <button ref = {refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" onClick={handleClick}>Edit Course</button>
+              <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#2a9d8f' }}>Close</button>
+              <button disabled={course.etitle.length < 2 || course.einstructor.length < 2 || course.eduration.length < 2} type="button" className="btn btn-primary" onClick={handleClick} style={{ backgroundColor: '#2a9d8f' }}>Edit Course</button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Html code for Adding Course */}
-      <div className="centered d-flex justify-content-center align-items-center">
+      {/* Html code for Displaying Course */}
+      <div className="centered">
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end m-3">
+          <button className="btn me-md-3" style={{ backgroundColor: '#2a9d8f' }} type="button">Login</button>
+          <button className="btn" type="button" style={{ backgroundColor: '#2a9d8f' }}>Signup</button>
+        </div>
         <div className="container">
           <div className="title">
             <h1>Dashboard</h1>
@@ -126,8 +131,10 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="button">
-            <button type="button" className="btn mt-3"onClick={handleAddCourse} style={{ backgroundColor: '#2a9d8f' }}>Add New Course</button>
+            <button type="button" data-bs-toggle="modal"
+              data-bs-target="#addCourseModal" className="btn mt-3" onClick={() => handleAddCourse()} style={{ backgroundColor: '#2a9d8f' }}>Add New Course</button>
           </div>
+
           {FormVisible && (
             <Addcourse setFormVisible={setFormVisible} />
           )}

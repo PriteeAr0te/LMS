@@ -25,7 +25,7 @@ const CourseState = (props) => {
 
 
   //Add a Course 
-  const addCourse = async (title, description, instructor, duration, tag) => {
+  const addCourse = async(title, description, instructor, duration, tag) => {
 
     //Fetch API
     const response = await fetch(`${host}api/course/addcourse`, {
@@ -36,21 +36,8 @@ const CourseState = (props) => {
       },
       body: JSON.stringify({ title, description, instructor, duration, tag }),
     });
-    const json = await response.json();
-    console.log(json)
-    
-    const course = {
-      "_id": "65a0eecf984dab83dbaef7780",
-      "admin": "659eb22c2180895cf670fe02",
-      "title": title,
-      "description": description,
-      "instructor": instructor,
-      "duration": duration,
-      "tag": tag,
-      "__v": 0
-    }
-    console.log("Adding a Course")
-    setCourses(courses.concat(course))
+    const course = await response.json();
+    setCourses(courses.concat(course)) 
   }
 
   //Edit a Course 
