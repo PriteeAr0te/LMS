@@ -18,7 +18,7 @@ router.get('/fetchallcourses', fetchadmin, async(req, res)=>{
 
 
 //Route 2: Add Coourses using Post "/api/course/addcourse" Login Required
-router.get('/addcourse', fetchadmin, [
+router.post('/addcourse', fetchadmin, [
     body('title','Enter a valid title').isLength({min:3}),
    body('description', 'Enter a valid description').isLength({min:3}),
 
@@ -36,7 +36,7 @@ router.get('/addcourse', fetchadmin, [
       res.json(savedCourse)
     }
     catch(error){
-        // console.log(error)
+        console.log(error)
         res.status(500).json({error: "Error Occured in adding Course"})
     }
  })

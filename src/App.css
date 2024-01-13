@@ -4,7 +4,9 @@
   background-color: #2a9d8f;
   z-index: 1;
 }
-
+i {
+  cursor: pointer;
+}
 .container {
   height:90vh;
   width:80vw;

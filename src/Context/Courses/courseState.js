@@ -1,177 +1,117 @@
 import courseContext from './courseContext';
 import { useState } from 'react';
+import React from 'react';
 
 const CourseState = (props) => {
-    const courseInitial=[
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "659ee67ed0396b1d7b764664",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "Web Development",
-              "description": "This the best Web Development Course",
-              "instructor": "Sharaddha Didi",
-              "duration": "3 Weeks",
-              "tag": "Web Development",
-              "__v": 0
-            },
-            {
-              "_id": "65a0eecf984dab83dbaef778",
-              "admin": "659eb22c2180895cf670fe02",
-              "title": "React Development",
-              "description": "This the best React Development Course",
-              "instructor": "Harry Bhai",
-              "duration": "10 Weeks",
-              "tag": "React Development",
-              "__v": 0
-            }
-          ]
-          const [courses, setCourses] = useState(courseInitial)
+  const host = "http://localhost:5000/";
+  const courseInitial = []
 
-            return (
-                <courseContext.Provider value={{ courses, setCourses }}>
-                    {props.children}
-                </courseContext.Provider>
-            );
-        
+
+
+  //Get all Courses
+  const getCourses = async () => {
+    //Fetch API
+    const response = await fetch(`${host}api/course/fetchallcourses`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1OWViMjJjMjE4MDg5NWNmNjcwZmUwMiJ9LCJpYXQiOjE3MDQ4OTk0ODN9.gqlmZANBcf5D-o7sR8T6FPx9BHwsz8P29ERD8407Pnc"
+      }
+    });
+    const json = await response.json();
+    console.log(json)
+    setCourses(json)
+  }
+
+
+  //Add a Course 
+  const addCourse = async (title, description, instructor, duration, tag) => {
+
+    //Fetch API
+    const response = await fetch(`${host}api/course/addcourse`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1OWViMjJjMjE4MDg5NWNmNjcwZmUwMiJ9LCJpYXQiOjE3MDQ4OTk0ODN9.gqlmZANBcf5D-o7sR8T6FPx9BHwsz8P29ERD8407Pnc"
+      },
+      body: JSON.stringify({ title, description, instructor, duration, tag }),
+    });
+    const json = await response.json();
+    console.log(json)
+    
+    const course = {
+      "_id": "65a0eecf984dab83dbaef7780",
+      "admin": "659eb22c2180895cf670fe02",
+      "title": title,
+      "description": description,
+      "instructor": instructor,
+      "duration": duration,
+      "tag": tag,
+      "__v": 0
+    }
+    console.log("Adding a Course")
+    setCourses(courses.concat(course))
+  }
+
+  //Edit a Course 
+  const editCourse = async (id, title, description, instructor, duration, tag) => {
+    //Fetch API
+    const response = await fetch(`${host}api/course/updatecourse/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1OWViMjJjMjE4MDg5NWNmNjcwZmUwMiJ9LCJpYXQiOjE3MDQ4OTk0ODN9.gqlmZANBcf5D-o7sR8T6FPx9BHwsz8P29ERD8407Pnc"
+      },
+      body: JSON.stringify({ title, description, instructor, duration, tag }),
+    });
+    const json = await response.json();
+    console.log(json)
+
+    //Logic to Edit Course
+    const updatedCourses = courses.map(course => {
+      if (course._id === id) {
+        return {
+          ...course,
+          title,
+          description,
+          instructor,
+          duration,
+          tag,
+        };
+      }
+      return course;
+    });
+  
+    setCourses(updatedCourses);
+  }
+
+  //Delete a Course
+  const deleteCourse = async (id) => {
+    //Delete Course API
+    const response = await fetch(`${host}api/course/deletecourse/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjY1OWViMjJjMjE4MDg5NWNmNjcwZmUwMiJ9LCJpYXQiOjE3MDQ4OTk0ODN9.gqlmZANBcf5D-o7sR8T6FPx9BHwsz8P29ERD8407Pnc"
+      }
+    });
+    const json = await response.json();
+    console.log(json)
+    setCourses(json)
+
+    //Logic to delete course
+    console.log("Deleteing course with id: " + id)
+    const newCourse = courses.filter((course) => { return course._id !== id })
+    setCourses(newCourse)
+  }
+  const [courses, setCourses] = useState(courseInitial)
+
+  return (
+    <courseContext.Provider value={{ courses, addCourse, editCourse, deleteCourse, getCourses }}>
+      {props.children}
+    </courseContext.Provider>
+  );
+
 }
 
 export default CourseState;
