@@ -21,15 +21,31 @@ const Dashboard = () => {
   }
 
   const updateCourse = (currentCourse) => {
-    refEdit.current.click()
-    setCourse({ id: currentCourse._id, etitle: currentCourse.title, edescription: currentCourse.description, einstructor: currentCourse.instructor, eduration: currentCourse.duration, etag: currentCourse.tag })
-  }
+    console.log("Current Course Details:", currentCourse);
+    refEdit.current.click();
+    setCourse({
+      id: currentCourse._id,
+      etitle: currentCourse.title,
+      edescription: currentCourse.description,
+      einstructor: currentCourse.instructor,
+      eduration: currentCourse.duration,
+      etag: currentCourse.tag,
+    });
+  };
+
   const handleClick = (e) => {
-    console.log("Updating a Course", course)
-    editCourse(course.id, course.etitle, course.edescription, course.einstructor, course.eduration, course.etag)
-    // e.preventDefault();
-    refClose.current.click()
-  }
+    console.log("Updating a Course", course);
+    editCourse(
+      course.id,
+      course.etitle,
+      course.edescription,
+      course.einstructor,
+      course.eduration,
+      course.etag
+    );
+    refClose.current.click();
+  };
+
   const onChange = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value })
   }
@@ -37,10 +53,10 @@ const Dashboard = () => {
   const refClose = useRef(null);
 
   const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? `${text.substring(0, maxLength - 10)}...` : text;
+    return text.length > maxLength ? `${text.substring(0, maxLength - 3)}...` : text;
   };
 
-  const truncateFields = (course) => {
+  const truncateFieldsForDisplay = (course) => {
     const maxLength = 30;
     return {
       ...course,
@@ -53,46 +69,70 @@ const Dashboard = () => {
   return (
     <>
       {/* Html Course for Editing Course */}
-      <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editCourseModel" data-bs-whatever="@mdo" ref={refEdit}>Open modal for Edit</button>
+      <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editCourseModel" data-bs-whatever="@mdo" ref={refEdit}>
+  Open modal for Edit
+</button>
 
-      <div className="modal fade" id="editCourseModel" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content" style={{ backgroundColor: '#e9c46a' }}>
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="edit-course">Edit Course </h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-1 fw-bold">
-                  <label htmlFor="etitle" className="col-form-label">Title <i style={{ color: 'red' }}>*</i></label>
-                  <input type="text" className="form-control" value={course.etitle} name="etitle" onChange={onChange} id="etitle" minLength={2}  required />
-                </div>
-                <div className="mb-1 fw-bold">
-                  <label htmlFor="edescription" className="col-form-label">Description</label>
-                  <textarea className="form-control" value={course.edescription} name="edescription" onChange={onChange} id="edescription" minLength={2}></textarea>
-                </div>
-                <div className="mb-1 fw-bold">
-                  <label htmlFor="einstructor" className="col-form-label">Instructor<i style={{ color: 'red' }}>*</i></label>
-                  <input type="text" className="form-control" value={course.einstructor} name="einstructor" onChange={onChange} id="einstructor" minLength={2}  required />
-                </div>
-                <div className="mb-1 fw-bold">
-                  <label htmlFor="eduration" className="col-form-label">Duration <i style={{ color: 'red' }}>*</i></label>
-                  <input type="text" className="form-control" value={course.eduration} name="eduration" onChange={onChange} id="eduration" minLength={2}  required />
-                </div>
-                <div className="mb-1 fw-bold">
-                  <label htmlFor="etag" className="col-form-label">Tag</label>
-                  <input type="text" className="form-control" value={course.etag} name="etag" onChange={onChange} id="etag" minLength={2} />
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#2a9d8f' }}>Close</button>
-              <button disabled={course.etitle.length < 2 || course.einstructor.length < 2 || course.eduration.length < 2} type="button" className="btn btn-primary" onClick={handleClick} style={{ backgroundColor: '#2a9d8f' }}>Edit Course</button>
-            </div>
-          </div>
-        </div>
+<div className="modal fade" id="editCourseModel" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content" style={{ backgroundColor: '#e9c46a' }}>
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="edit-course">Edit Course </h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div className="modal-body">
+        <form>
+          <div className="mb-1 fw-bold">
+            <label htmlFor="etitle" className="col-form-label">
+              Title <i style={{ color: "red" }}>*</i>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              value={course.etitle}
+              name="etitle"
+              onChange={onChange}
+              id="etitle"
+              minLength={2}
+              required
+            />
+          </div>
+          <div className="mb-1 fw-bold">
+            <label htmlFor="edescription" className="col-form-label">
+              Description
+            </label>
+            <textarea
+              className="form-control"
+              value={course.edescription}
+              name="edescription"
+              onChange={onChange}
+              id="edescription"
+              minLength={2}
+              style={{ overflow: 'auto', height: 'auto' }}
+            ></textarea>
+          </div>
+          <div className="mb-1 fw-bold">
+            <label htmlFor="einstructor" className="col-form-label">Instructor<i style={{ color: 'red' }}>*</i></label>
+            <input type="text" className="form-control" value={course.einstructor} name="einstructor" onChange={onChange} id="einstructor" minLength={2} required />
+          </div>
+          <div className="mb-1 fw-bold">
+            <label htmlFor="eduration" className="col-form-label">Duration <i style={{ color: 'red' }}>*</i></label>
+            <input type="text" className="form-control" value={course.eduration} name="eduration" onChange={onChange} id="eduration" minLength={2} required />
+          </div>
+          <div className="mb-1 fw-bold">
+            <label htmlFor="etag" className="col-form-label">Tag</label>
+            <input type="text" className="form-control" value={course.etag} name="etag" onChange={onChange} id="etag" minLength={2} />
+          </div>
+        </form>
+      </div>
+      <div className="modal-footer">
+        <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#2a9d8f' }}>Close</button>
+        <button disabled={course.etitle.length < 2 || course.einstructor.length < 2 || course.eduration.length < 2} type="button" className="btn btn-primary" onClick={handleClick} style={{ backgroundColor: '#2a9d8f' }}>Edit Course</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       {/* Html code for Displaying Course */}
       <div className="centered">
@@ -104,7 +144,7 @@ const Dashboard = () => {
           <div className="title">
             <h1>Dashboard</h1>
           </div>
-          <div className="overflow" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+          <div className="overflow" style={{ maxHeight: "70vh", overflowY: "auto" }}>
             <div className="main-content m-3">
               <table className="table table-dark table-striped">
                 <thead className="position-sticky top-0 bg-dark">
@@ -120,7 +160,7 @@ const Dashboard = () => {
                 </thead>
                 <tbody className="custom-tbody">
                   {courses.map((course, index) => {
-                    const truncatedCourse = truncateFields(course);
+                    const truncatedCourse = truncateFieldsForDisplay(course);
 
                     return (
                       <Courseitem key={course._id} course={truncatedCourse} updateCourse={updateCourse} index={index + 1} />
