@@ -16,6 +16,7 @@ router.post('/createadmin',[
    body('password', 'Password must be greater than 5 characters').isLength({min:6}),
    body('phone', 'Enter Valid Mobile No.').isLength({max:10})
 ] , async(req, res)=>{
+   let success = false;
    try{
       //Check of there are any errors in received data
       const errors = validationResult(req);
@@ -49,7 +50,8 @@ router.post('/createadmin',[
        //Genetate JWT using admin's data and a secret key
        const authtoken = jwt.sign(data, JWT_SECRET);
        //Sending JWT token back to the user
-       res.json({"Authtoken": authtoken})
+       success = true;
+       res.json({success, "Authtoken": authtoken})
 
    }
    catch(error){
@@ -89,7 +91,8 @@ router.post('/login',[
       //Genetate JWT using admin's data and a secret key
       const authtoken = jwt.sign(data, JWT_SECRET);
       //Sending JWT token back to the user
-      res.json({authtoken})
+      let success = true;
+      res.json({success, authtoken})
    }
    catch(error){
       return res.status(400).json({error: "Error Occured in Login"})

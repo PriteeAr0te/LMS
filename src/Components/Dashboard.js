@@ -52,19 +52,6 @@ const Dashboard = () => {
   const refEdit = useRef(null);
   const refClose = useRef(null);
 
-  const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? `${text.substring(0, maxLength - 3)}...` : text;
-  };
-
-  const truncateFieldsForDisplay = (course) => {
-    const maxLength = 30;
-    return {
-      ...course,
-      title: truncateText(course.title, maxLength),
-      instructor: truncateText(course.instructor, maxLength),
-      description: truncateText(course.description, maxLength),
-    };
-  };
 
   return (
     <>
@@ -126,8 +113,8 @@ const Dashboard = () => {
         </form>
       </div>
       <div className="modal-footer">
-        <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#2a9d8f' }}>Close</button>
-        <button disabled={course.etitle.length < 2 || course.einstructor.length < 2 || course.eduration.length < 2} type="button" className="btn btn-primary" onClick={handleClick} style={{ backgroundColor: '#2a9d8f' }}>Edit Course</button>
+        <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#415a77' }}>Close</button>
+        <button disabled={course.etitle.length < 2 || course.einstructor.length < 2 || course.eduration.length < 2} type="button" className="btn btn-primary" onClick={handleClick} style={{ backgroundColor: '#415a77' }}>Edit Course</button>
       </div>
     </div>
   </div>
@@ -136,13 +123,9 @@ const Dashboard = () => {
 
       {/* Html code for Displaying Course */}
       <div className="centered">
-        <div className="d-grid gap-2 d-md-flex justify-content-md-end m-3">
-          <button className="btn me-md-3" style={{ backgroundColor: '#2a9d8f' }} type="button">Login</button>
-          <button className="btn" type="button" style={{ backgroundColor: '#2a9d8f' }}>Signup</button>
-        </div>
         <div className="container">
           <div className="title">
-            <h1>Dashboard</h1>
+            {/* <h1>Dashboard</h1> */}
           </div>
           <div className="overflow" style={{ maxHeight: "70vh", overflowY: "auto" }}>
             <div className="main-content m-3">
@@ -159,11 +142,9 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="custom-tbody">
-                  {courses.map((course, index) => {
-                    const truncatedCourse = truncateFieldsForDisplay(course);
-
+                  {courses.map((currentCourse, index) => {
                     return (
-                      <Courseitem key={course._id} course={truncatedCourse} updateCourse={updateCourse} index={index + 1} />
+                      <Courseitem key={course._id} course={currentCourse} updateCourse={updateCourse} index={index + 1} />
                     );
                   })}
                 </tbody>
@@ -172,7 +153,7 @@ const Dashboard = () => {
           </div>
           <div className="button">
             <button type="button" data-bs-toggle="modal"
-              data-bs-target="#addCourseModal" className="btn mt-3" onClick={() => handleAddCourse()} style={{ backgroundColor: '#2a9d8f' }}>Add New Course</button>
+              data-bs-target="#addCourseModal" className="btn mt-3" onClick={() => handleAddCourse()} style={{ backgroundColor: '#415a77' }}>Add New Course</button>
           </div>
 
           {FormVisible && (

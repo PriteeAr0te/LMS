@@ -55,8 +55,8 @@ const Addcourse = (props) => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#2a9d8f' }}>Close</button>
-                            <button disabled={course.title.length < 2 || course.instructor.length < 2 || course.duration.length < 2} type="button" className="btn btn-primary" onClick={handleClickAdd} style={{ backgroundColor: '#2a9d8f' }}>Add New Course</button>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal" style={{ backgroundColor: '#415a77' }}>Close</button>
+                            <button disabled={course.title.length < 2 || course.instructor.length < 2 || course.duration.length < 2} type="button" className="btn btn-primary" onClick={handleClickAdd} style={{ backgroundColor: '#415a77' }}>Add New Course</button>
                         </div>
                     </div>
                 </div>

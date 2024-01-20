@@ -6,15 +6,19 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import CourseState from './Context/Courses/courseState';
+import CourseState from './Context/Courses/courseState'
+import Navbar from './Components/Navbar';
+import Login from './Components/Login';
 
 function App() {
   return (
     <>
-    <CourseState>
+    <CourseState >
     <BrowserRouter>
+    <Navbar />
       <Routes>
       <Route path="/" element={<Dashboard/>} />
+      <Route path="/login" element={<Login/>} />
       </Routes>
     </BrowserRouter>
     </CourseState>

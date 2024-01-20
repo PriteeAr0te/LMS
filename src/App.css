@@ -1,7 +1,7 @@
 
 
 .position-sticky th {
-  background-color: #2a9d8f;
+  background-color: #415a77;
   z-index: 1;
 }
 i {
@@ -10,10 +10,20 @@ i {
 .container {
   height:90vh;
   width:80vw;
-  background-color: #f4a261;
-  margin-top:1rem;
+  background-color: #e0e1dd
 }
 .custom-tbody tr{
-  background-color: #2a9d8f;
+  background-color: #415a77;
 }
+/* .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:90vh;
+  width:80vw;
+  background-color: #e0e1dd
+}
+.centered {
+
+} */
 
