@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: ["https://lms-plum-sigma.vercel.app/"],
+    origin: ["https://lms-frontend-eight-zeta.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
