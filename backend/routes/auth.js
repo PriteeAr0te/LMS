@@ -2,7 +2,7 @@ const express = require('express');
 const Admin = require('../models/Admin');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 router.use(express.json())
 const fetchadmin = require('../middleware/fetchadmin')
