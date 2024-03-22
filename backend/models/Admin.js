@@ -29,6 +29,6 @@ const AdminSchema = new Schema({
     }
 });
 
+AdminSchema.index({ email: 1 }, { unique: true });
 const Admin = mongoose.model('admin', AdminSchema);
-Admin.createIndexes();
 module.exports = Admin;
