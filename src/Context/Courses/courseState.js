@@ -3,7 +3,7 @@ import { useState } from 'react';
 import React from 'react';
 
 const CourseState = (props) => {
-  const host = "http://localhost:5000/";
+  const host = "https://lms-shog-api.vercel.app/";
   const courseInitial = []
 
 
